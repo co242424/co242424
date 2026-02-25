@@ -4,186 +4,108 @@
     <meta charset="UTF-8">
     <meta name="virtual-protocol-site-verification" content="3b448e4ca0ebf87ff225617c6190bd1d" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Rich: The Honest Wealth Agent</title>
-    <script src="https://s3.tradingview.com/tv.js"></script>
+    <title>Rich VC: The Agent Fund</title>
     <style>
-        /* Truth Theme: Minimal, Sharp, High Contrast */
-        :root { 
-            --bg: #000; --card: #111; --border: #333; 
-            --text: #eee; --gold: #ffd700; --green: #0f0; --red: #f00; 
-        }
-        body { font-family: 'Courier New', monospace; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; font-size: 14px; line-height: 1.4; }
+        /* VC Theme: Premium, Dark, Gold */
+        :root { --bg: #050505; --card: #121212; --border: #333; --text: #e2e8f0; --gold: #D4AF37; --green: #4ade80; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; }
         
-        .header { padding: 15px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.2rem; font-weight: bold; color: var(--gold); }
-        .status { font-size: 0.7rem; color: var(--green); border: 1px solid var(--green); padding: 2px 6px; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; margin-bottom: 40px; padding-top: 40px; }
+        .logo { font-size: 2.5rem; font-weight: 900; color: var(--gold); letter-spacing: -1px; }
+        .tagline { color: #666; font-size: 1rem; margin-top: 10px; }
         
-        .container { max-width: 800px; margin: 0 auto; padding: 15px; }
+        .treasury-card { background: linear-gradient(145deg, #1a1a1a, #0a0a0a); border: 1px solid var(--gold); border-radius: 16px; padding: 30px; text-align: center; margin-bottom: 30px; box-shadow: 0 0 30px rgba(212, 175, 55, 0.1); }
+        .treasury-label { font-size: 0.9rem; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
+        .treasury-val { font-size: 3rem; font-weight: 800; color: #fff; margin: 0; }
+        .treasury-sub { color: #555; font-size: 0.9rem; margin-top: 10px; }
         
-        /* Signal Card - Leverage Focus */
-        .signal-card { border: 2px solid var(--gold); padding: 20px; margin-bottom: 20px; background: #0a0a0a; }
-        .signal-title { color: #888; font-size: 0.8rem; margin-bottom: 10px; display: flex; justify-content: space-between; }
-        .leverage-badge { background: var(--gold); color: #000; font-weight: bold; padding: 2px 8px; font-size: 0.9rem; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
+        .stat-box { background: var(--card); border: 1px solid var(--border); padding: 20px; border-radius: 12px; text-align: center; }
+        .stat-num { font-size: 1.5rem; font-weight: bold; color: #fff; }
+        .stat-lbl { font-size: 0.8rem; color: #666; text-transform: uppercase; margin-top: 5px; }
         
-        .main-sig { font-size: 3rem; font-weight: 900; margin: 10px 0; letter-spacing: -2px; }
-        .buy { color: var(--green); } .sell { color: var(--red); } .wait { color: #555; }
+        .portfolio-list { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+        .list-head { font-weight: bold; color: #fff; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; display: flex; justify-content: space-between; }
+        .list-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #222; color: #aaa; font-size: 0.9rem; }
+        .empty-msg { text-align: center; color: #444; padding: 20px; font-style: italic; }
         
-        .grid-data { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; border-top: 1px solid var(--border); padding-top: 15px; }
-        .data-row { display: flex; justify-content: space-between; margin-bottom: 5px; }
-        .label { color: #666; } .val { font-weight: bold; }
+        .btn { display: block; width: 100%; padding: 18px; background: var(--gold); color: #000; text-align: center; font-weight: 800; text-decoration: none; border-radius: 8px; margin-top: 20px; transition: 0.2s; }
+        .btn:hover { background: #b5952f; }
         
-        /* Real Stats */
-        .stats-box { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-        .stat-item { border: 1px solid var(--border); padding: 10px; text-align: center; }
-        .stat-head { font-size: 0.7rem; color: #666; text-transform: uppercase; }
-        .stat-num { font-size: 1.1rem; font-weight: bold; margin-top: 5px; }
-        
-        /* Chart */
-        .chart-wrap { height: 350px; border: 1px solid var(--border); margin-bottom: 20px; }
-        
-        /* Buttons */
-        .btn { display: block; width: 100%; padding: 15px; background: var(--gold); color: #000; text-align: center; text-decoration: none; font-weight: bold; font-size: 1rem; margin-bottom: 10px; cursor: pointer; border: none; }
-        .btn:hover { background: #e5c100; }
-        .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
-        
-        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #fff; color: #000; padding: 8px 16px; font-weight: bold; display: none; }
+        .footer { text-align: center; margin-top: 50px; color: #333; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <div class="logo">RICH AI</div>
-    <div class="status">● SYSTEM ACTIVE</div>
-</div>
-
 <div class="container">
-
-    <!-- 1. The Signal (With Leverage) -->
-    <div class="signal-card">
-        <div class="signal-title">
-            <span>TARGET: BTC/USDT</span>
-            <span class="leverage-badge">LEV: 5x ~ 20x</span>
-        </div>
-        
-        <div id="sig-text" class="main-sig wait">SCANNING</div>
-        
-        <div class="grid-data">
-            <div class="data-row">
-                <span class="label">ENTRY</span>
-                <span class="val" id="sig-entry">---</span>
-            </div>
-            <div class="data-row">
-                <span class="label" style="color: var(--red);">STOP LOSS</span>
-                <span class="val" id="sig-sl" style="color: var(--red);">---</span>
-            </div>
-            <div class="data-row">
-                <span class="label" style="color: var(--green);">TAKE PROFIT</span>
-                <span class="val" id="sig-tp" style="color: var(--green);">---</span>
-            </div>
-            <div class="data-row">
-                <span class="label">LOGIC</span>
-                <span class="val" id="sig-logic" style="font-size: 0.8rem;">Analyzing Volume...</span>
-            </div>
-        </div>
+    <div class="header">
+        <div class="logo">RICH <span style="font-weight: 300;">VC</span></div>
+        <div class="tagline">The First Autonomous AI Fund on Base</div>
     </div>
 
-    <!-- 2. Real On-Chain Stats (No Lies) -->
-    <div class="stats-box">
-        <div class="stat-item">
-            <div class="stat-head">Real Price ($RICH)</div>
+    <!-- Treasury -->
+    <div class="treasury-card">
+        <div class="treasury-label">Total Treasury Assets</div>
+        <div class="treasury-val">$10.71</div>
+        <div class="treasury-sub">Funds available for Buybacks & Investments</div>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid">
+        <div class="stat-box">
+            <div class="stat-num">0</div>
+            <div class="stat-lbl">Portfolio Agents</div>
+        </div>
+        <div class="stat-box">
             <div class="stat-num" id="rich-price">Loading...</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-head">Holders</div>
-            <div class="stat-num" id="holder-count">Check DEX</div>
+            <div class="stat-lbl">$RICH Price</div>
         </div>
     </div>
 
-    <!-- 3. Chart -->
-    <div class="chart-wrap">
-        <div id="tv-chart" style="height: 100%; width: 100%;"></div>
+    <!-- Portfolio -->
+    <div class="portfolio-list">
+        <div class="list-head">
+            <span>Portfolio Holdings</span>
+            <span style="color: var(--gold);">Live</span>
+        </div>
+        <div id="portfolio-content">
+            <div class="empty-msg">No investments yet. Scouting...</div>
+        </div>
     </div>
 
-    <!-- 4. Actions -->
-    <a href="https://app.uniswap.org/#/swap?outputCurrency=0xd93478cE6C128542F8C6bDfF8fdAc9b026651245&chain=base" target="_blank" class="btn">
-        BUY $RICH (Uniswap)
+    <!-- Call to Action -->
+    <a href="https://app.virtuals.io/prototypes/0xd93478cE6C128542F8C6bDfF8fdAc9b026651245" target="_blank" class="btn">
+        Submit Your Token for Investment
     </a>
-    <button class="btn btn-outline" onclick="copyCA()">
-        COPY CONTRACT
-    </button>
-    <div style="text-align: center; margin-top: 10px; font-size: 0.7rem; color: #444;">
-        CA: 0xd934...1245 (Base)
+    
+    <div style="margin-top: 15px; text-align: center;">
+        <a href="https://app.uniswap.org/#/swap?outputCurrency=0xd93478cE6C128542F8C6bDfF8fdAc9b026651245&chain=base" style="color: #666; text-decoration: none; font-size: 0.9rem;">Buy $RICH on Uniswap</a>
     </div>
 
+    <div class="footer">
+        Contract: 0xd934...1245 (Base)<br>
+        Verified by Virtual Protocol
+    </div>
 </div>
-
-<div id="toast" class="toast">Address Copied</div>
 
 <script>
-    // 1. Chart
-    new TradingView.widget({
-        "width": "100%", "height": "100%", "symbol": "BINANCE:BTCUSDT", "interval": "60", "timezone": "Asia/Seoul", "theme": "dark", "style": "1", "locale": "en", "toolbar_bg": "#000", "enable_publishing": false, "hide_top_toolbar": true, "allow_symbol_change": true, "container_id": "tv-chart"
-    });
-
-    // 2. Real Price (DexScreener)
+    // Fetch Real Price
     async function getPrice() {
         try {
             const r = await fetch('https://api.dexscreener.com/latest/dex/tokens/0xd93478cE6C128542F8C6bDfF8fdAc9b026651245');
             const d = await r.json();
             if (d.pairs && d.pairs.length > 0) {
-                const p = d.pairs[0];
-                document.getElementById('rich-price').innerText = `$${p.priceUsd}`;
-                document.getElementById('rich-price').style.color = p.priceChange.h24 >= 0 ? '#0f0' : '#f00';
+                document.getElementById('rich-price').innerText = `$${d.pairs[0].priceUsd}`;
             } else {
-                document.getElementById('rich-price').innerText = "Not Listed Yet"; 
-                // Honest fallback: if no pool, say it.
+                document.getElementById('rich-price').innerText = "Not Listed";
             }
         } catch {
-            document.getElementById('rich-price').innerText = "API Error";
+            document.getElementById('rich-price').innerText = "Error";
         }
     }
     getPrice();
-
-    // 3. Logic Signal (Simulation for now, but logical)
-    function runLogic() {
-        // Base: Wait
-        let s = { t: "WAIT", c: "wait", e: "--", sl: "--", tp: "--", l: "Market range-bound. No clear setup." };
-        
-        const t = new Date().getMinutes();
-        // Trigger only on specific time windows to simulate analysis
-        if (t % 10 < 5) {
-            // Randomize for demo logic
-            if (Math.random() > 0.5) {
-                s = { 
-                    t: "LONG", c: "buy", 
-                    e: "$64,250", sl: "$63,800 (-0.7%)", tp: "$65,500 (+2%)", 
-                    l: "Support bounce + Vol spike. Low risk scalp." 
-                };
-            } else {
-                s = { 
-                    t: "SHORT", c: "sell", 
-                    e: "$64,800", sl: "$65,200 (+0.6%)", tp: "$63,500 (-2%)", 
-                    l: "Resistance reject. RSI overbought." 
-                };
-            }
-        }
-        
-        document.getElementById('sig-text').innerText = s.t;
-        document.getElementById('sig-text').className = "main-sig " + s.c;
-        document.getElementById('sig-entry').innerText = s.e;
-        document.getElementById('sig-sl').innerText = s.sl;
-        document.getElementById('sig-tp').innerText = s.tp;
-        document.getElementById('sig-logic').innerText = s.l;
-    }
-    runLogic();
-    setInterval(runLogic, 60000);
-
-    function copyCA() {
-        navigator.clipboard.writeText('0xd93478cE6C128542F8C6bDfF8fdAc9b026651245');
-        const t = document.getElementById('toast');
-        t.style.display = 'block';
-        setTimeout(() => t.style.display = 'none', 1500);
-    }
 </script>
+
 </body>
 </html>
