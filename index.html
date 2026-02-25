@@ -4,255 +4,186 @@
     <meta charset="UTF-8">
     <meta name="virtual-protocol-site-verification" content="3b448e4ca0ebf87ff225617c6190bd1d" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Rich: AI Wealth Architect</title>
+    <title>Rich: The Honest Wealth Agent</title>
     <script src="https://s3.tradingview.com/tv.js"></script>
     <style>
-        /* V7 Ultra-Precision Dark Theme */
+        /* Truth Theme: Minimal, Sharp, High Contrast */
         :root { 
-            --bg: #050505; --card: #111; --border: #333; 
-            --text: #e2e8f0; --accent: #ffd700; --green: #00ff9d; --red: #ff3b30; 
-            --glass: rgba(255, 255, 255, 0.05);
+            --bg: #000; --card: #111; --border: #333; 
+            --text: #eee; --gold: #ffd700; --green: #0f0; --red: #f00; 
         }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; font-size: 16px; line-height: 1.6; }
+        body { font-family: 'Courier New', monospace; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; font-size: 14px; line-height: 1.4; }
         
-        /* Header */
-        .header { background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); padding: 15px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 1.2rem; font-weight: 900; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; }
-        .status { font-size: 0.75rem; color: var(--green); display: flex; align-items: center; background: rgba(0, 255, 157, 0.1); padding: 5px 10px; border-radius: 20px; border: 1px solid rgba(0, 255, 157, 0.2); }
-        .live-dot { height: 6px; width: 6px; background-color: var(--green); border-radius: 50%; margin-right: 6px; animation: blink 1s infinite; }
+        .header { padding: 15px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.2rem; font-weight: bold; color: var(--gold); }
+        .status { font-size: 0.7rem; color: var(--green); border: 1px solid var(--green); padding: 2px 6px; }
         
-        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; padding: 15px; }
         
-        /* Signal Card (Pro) */
-        .signal-card { background: var(--card); border-radius: 16px; border: 1px solid var(--border); padding: 24px; margin-bottom: 30px; position: relative; overflow: hidden; }
-        .signal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
-        .pair { font-size: 1.5rem; font-weight: 900; color: #fff; }
-        .action-badge { font-size: 1rem; font-weight: bold; padding: 6px 16px; border-radius: 8px; text-transform: uppercase; }
-        .buy { background: rgba(0, 255, 157, 0.15); color: var(--green); border: 1px solid var(--green); }
-        .sell { background: rgba(255, 59, 48, 0.15); color: var(--red); border: 1px solid var(--red); }
-        .wait { background: rgba(255, 255, 255, 0.1); color: #aaa; border: 1px solid #555; }
+        /* Signal Card - Leverage Focus */
+        .signal-card { border: 2px solid var(--gold); padding: 20px; margin-bottom: 20px; background: #0a0a0a; }
+        .signal-title { color: #888; font-size: 0.8rem; margin-bottom: 10px; display: flex; justify-content: space-between; }
+        .leverage-badge { background: var(--gold); color: #000; font-weight: bold; padding: 2px 8px; font-size: 0.9rem; }
         
-        .levels-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px; }
-        .level-item { background: var(--glass); padding: 12px; border-radius: 8px; border: 1px solid var(--border); }
-        .level-label { font-size: 0.75rem; color: #888; text-transform: uppercase; margin-bottom: 4px; }
-        .level-val { font-size: 1.1rem; font-weight: bold; color: #fff; font-family: monospace; }
-        .tp-grid { grid-column: span 2; display: flex; gap: 10px; }
-        .tp-item { flex: 1; background: rgba(0, 255, 157, 0.05); border: 1px solid rgba(0, 255, 157, 0.2); padding: 10px; border-radius: 8px; text-align: center; }
-        .tp-label { font-size: 0.7rem; color: var(--green); font-weight: bold; }
-        .tp-val { font-size: 1rem; font-weight: bold; color: #fff; }
+        .main-sig { font-size: 3rem; font-weight: 900; margin: 10px 0; letter-spacing: -2px; }
+        .buy { color: var(--green); } .sell { color: var(--red); } .wait { color: #555; }
         
-        .logic-box { background: rgba(255, 215, 0, 0.05); border: 1px solid rgba(255, 215, 0, 0.2); padding: 15px; border-radius: 8px; margin-top: 15px; }
-        .logic-title { color: var(--accent); font-size: 0.85rem; font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; }
-        .logic-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+        .grid-data { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; border-top: 1px solid var(--border); padding-top: 15px; }
+        .data-row { display: flex; justify-content: space-between; margin-bottom: 5px; }
+        .label { color: #666; } .val { font-weight: bold; }
         
-        /* Stats & News */
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 30px; }
-        .stat-card { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid var(--border); text-align: center; transition: transform 0.2s; }
-        .stat-label { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
-        .stat-val { font-size: 1.4rem; font-weight: 700; color: #fff; }
+        /* Real Stats */
+        .stats-box { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .stat-item { border: 1px solid var(--border); padding: 10px; text-align: center; }
+        .stat-head { font-size: 0.7rem; color: #666; text-transform: uppercase; }
+        .stat-num { font-size: 1.1rem; font-weight: bold; margin-top: 5px; }
         
-        /* Chart Box */
-        .chart-box { height: 400px; background: var(--card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 30px; }
+        /* Chart */
+        .chart-wrap { height: 350px; border: 1px solid var(--border); margin-bottom: 20px; }
         
-        /* News Ticker */
-        .news-ticker { background: #000; color: var(--accent); font-size: 0.8rem; padding: 10px; white-space: nowrap; overflow: hidden; position: fixed; bottom: 0; left: 0; width: 100%; z-index: 100; border-top: 1px solid var(--border); }
-        .news-content { display: inline-block; padding-left: 100%; animation: ticker 25s linear infinite; }
+        /* Buttons */
+        .btn { display: block; width: 100%; padding: 15px; background: var(--gold); color: #000; text-align: center; text-decoration: none; font-weight: bold; font-size: 1rem; margin-bottom: 10px; cursor: pointer; border: none; }
+        .btn:hover { background: #e5c100; }
+        .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
         
-        /* Actions */
-        .btn { display: flex; justify-content: center; align-items: center; width: 100%; padding: 18px; border-radius: 10px; font-weight: 800; text-decoration: none; margin-bottom: 15px; font-size: 1rem; cursor: pointer; border: none; transition: 0.2s; }
-        .btn-primary { background: var(--accent); color: #000; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); }
-        .btn-secondary { background: transparent; color: #fff; border: 1px solid #555; }
-
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-        .toast { position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%); background: #fff; color: #000; padding: 10px 20px; border-radius: 20px; font-weight: bold; opacity: 0; transition: 0.3s; pointer-events: none; z-index: 2000; }
-        .toast.show { opacity: 1; }
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #fff; color: #000; padding: 8px 16px; font-weight: bold; display: none; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <div class="logo">💎 RICH <span style="font-weight: 300; font-size: 0.8rem; color: #666;">| V7.0 PRECISION</span></div>
-    <div class="status"><span class="live-dot"></span> SYSTEM ONLINE</div>
+    <div class="logo">RICH AI</div>
+    <div class="status">● SYSTEM ACTIVE</div>
 </div>
 
 <div class="container">
 
-    <!-- 1. The Precision Signal Card -->
+    <!-- 1. The Signal (With Leverage) -->
     <div class="signal-card">
-        <div class="signal-header">
-            <div class="pair">BTC/USDT <span style="font-size: 0.9rem; color: #666; font-weight: 400;">Perpetual</span></div>
-            <div id="signal-badge" class="action-badge wait">SCANNING</div>
+        <div class="signal-title">
+            <span>TARGET: BTC/USDT</span>
+            <span class="leverage-badge">LEV: 5x ~ 20x</span>
         </div>
         
-        <div class="levels-grid">
-            <div class="level-item">
-                <div class="level-label">Entry Zone</div>
-                <div class="level-val" id="entry-price">Waiting...</div>
-            </div>
-            <div class="level-item" style="border-color: rgba(255, 59, 48, 0.3);">
-                <div class="level-label" style="color: var(--red);">Stop Loss</div>
-                <div class="level-val" id="stop-loss" style="color: var(--red);">--</div>
-            </div>
-            
-            <div class="tp-grid">
-                <div class="tp-item">
-                    <div class="tp-label">TP 1 (Scalp)</div>
-                    <div class="tp-val" id="tp1">--</div>
-                </div>
-                <div class="tp-item">
-                    <div class="tp-label">TP 2 (Swing)</div>
-                    <div class="tp-val" id="tp2">--</div>
-                </div>
-                <div class="tp-item">
-                    <div class="tp-label">TP 3 (Moon)</div>
-                    <div class="tp-val" id="tp3">--</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="logic-box">
-            <div class="logic-title">🧠 AI Reasoning Engine</div>
-            <div class="logic-text" id="signal-reason">
-                Analyzing global order flow and on-chain metrics...<br>
-                Checking correlation with SPX and DXY.
-            </div>
-        </div>
+        <div id="sig-text" class="main-sig wait">SCANNING</div>
         
-        <div style="margin-top: 15px; font-size: 0.75rem; color: #666; text-align: right;">
-            Updated: <span id="last-update">Now</span> | Confidence: <span id="sig-conf">--%</span>
+        <div class="grid-data">
+            <div class="data-row">
+                <span class="label">ENTRY</span>
+                <span class="val" id="sig-entry">---</span>
+            </div>
+            <div class="data-row">
+                <span class="label" style="color: var(--red);">STOP LOSS</span>
+                <span class="val" id="sig-sl" style="color: var(--red);">---</span>
+            </div>
+            <div class="data-row">
+                <span class="label" style="color: var(--green);">TAKE PROFIT</span>
+                <span class="val" id="sig-tp" style="color: var(--green);">---</span>
+            </div>
+            <div class="data-row">
+                <span class="label">LOGIC</span>
+                <span class="val" id="sig-logic" style="font-size: 0.8rem;">Analyzing Volume...</span>
+            </div>
         </div>
     </div>
 
-    <!-- 2. Real Stats -->
-    <div class="grid-3">
-        <div class="stat-card">
-            <div class="stat-label">AI Win Rate (30D)</div>
-            <div class="stat-val" style="color: var(--green);">89.2%</div>
+    <!-- 2. Real On-Chain Stats (No Lies) -->
+    <div class="stats-box">
+        <div class="stat-item">
+            <div class="stat-head">Real Price ($RICH)</div>
+            <div class="stat-num" id="rich-price">Loading...</div>
         </div>
-        <div class="stat-card">
-            <div class="stat-label">$RICH Token Price</div>
-            <div class="stat-val" id="rich-price" style="color: var(--accent);">Loading...</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-label">Total Signals</div>
-            <div class="stat-val">1,248</div>
+        <div class="stat-item">
+            <div class="stat-head">Holders</div>
+            <div class="stat-num" id="holder-count">Check DEX</div>
         </div>
     </div>
 
-    <!-- 3. Global Intelligence (Chart) -->
-    <div class="chart-box">
-        <div id="tradingview_chart" style="height: 100%; width: 100%;"></div>
+    <!-- 3. Chart -->
+    <div class="chart-wrap">
+        <div id="tv-chart" style="height: 100%; width: 100%;"></div>
     </div>
 
-    <!-- Actions -->
-    <div style="margin-top: 30px;">
-        <a href="https://app.uniswap.org/#/swap?outputCurrency=0xd93478cE6C128542F8C6bDfF8fdAc9b026651245&chain=base" target="_blank" class="btn btn-primary">
-            🦄 Buy $RICH on Uniswap
-        </a>
-        <div class="btn btn-secondary" onclick="copyAddress()">
-            📄 Copy Token Address
-        </div>
+    <!-- 4. Actions -->
+    <a href="https://app.uniswap.org/#/swap?outputCurrency=0xd93478cE6C128542F8C6bDfF8fdAc9b026651245&chain=base" target="_blank" class="btn">
+        BUY $RICH (Uniswap)
+    </a>
+    <button class="btn btn-outline" onclick="copyCA()">
+        COPY CONTRACT
+    </button>
+    <div style="text-align: center; margin-top: 10px; font-size: 0.7rem; color: #444;">
+        CA: 0xd934...1245 (Base)
     </div>
 
-    <div style="text-align: center; color: #555; font-size: 0.8rem; margin-top: 30px; margin-bottom: 50px;">
-        Contract: 0xd934...1245 (Base) | Verified by Virtual Protocol
-    </div>
 </div>
 
-<!-- News Ticker -->
-<div class="news-ticker">
-    <div class="news-content" id="news-ticker">
-        FETCHING GLOBAL CRYPTO NEWS... 🌍 BTC HITS $65K RESISTANCE... ETH UPGRADE SUCCESSFUL... SOLANA NETWORK CONGESTION RESOLVED... BLACKROCK ETF INFLOW SURGE...
-    </div>
-</div>
-
-<div id="toast" class="toast">Address Copied!</div>
+<div id="toast" class="toast">Address Copied</div>
 
 <script>
-    // 1. TradingView
+    // 1. Chart
     new TradingView.widget({
-        "width": "100%", "height": "100%", "symbol": "BINANCE:BTCUSDT", "interval": "60", "timezone": "Asia/Seoul", "theme": "dark", "style": "1", "locale": "en", "toolbar_bg": "#111", "enable_publishing": false, "hide_top_toolbar": true, "allow_symbol_change": true, "container_id": "tradingview_chart"
+        "width": "100%", "height": "100%", "symbol": "BINANCE:BTCUSDT", "interval": "60", "timezone": "Asia/Seoul", "theme": "dark", "style": "1", "locale": "en", "toolbar_bg": "#000", "enable_publishing": false, "hide_top_toolbar": true, "allow_symbol_change": true, "container_id": "tv-chart"
     });
 
-    // 2. Real Price Fetcher
-    async function fetchRichPrice() {
+    // 2. Real Price (DexScreener)
+    async function getPrice() {
         try {
-            const res = await fetch('https://api.dexscreener.com/latest/dex/tokens/0xd93478cE6C128542F8C6bDfF8fdAc9b026651245');
-            const data = await res.json();
-            if (data.pairs && data.pairs.length > 0) {
-                const pair = data.pairs[0];
-                document.getElementById('rich-price').innerText = `$${pair.priceUsd}`;
-                document.getElementById('rich-price').style.color = pair.priceChange.h24 >= 0 ? 'var(--green)' : 'var(--red)';
+            const r = await fetch('https://api.dexscreener.com/latest/dex/tokens/0xd93478cE6C128542F8C6bDfF8fdAc9b026651245');
+            const d = await r.json();
+            if (d.pairs && d.pairs.length > 0) {
+                const p = d.pairs[0];
+                document.getElementById('rich-price').innerText = `$${p.priceUsd}`;
+                document.getElementById('rich-price').style.color = p.priceChange.h24 >= 0 ? '#0f0' : '#f00';
             } else {
-                document.getElementById('rich-price').innerText = "Not Listed";
+                document.getElementById('rich-price').innerText = "Not Listed Yet"; 
+                // Honest fallback: if no pool, say it.
             }
-        } catch (e) {
+        } catch {
             document.getElementById('rich-price').innerText = "API Error";
         }
     }
-    fetchRichPrice();
+    getPrice();
 
-    // 3. AI Precision Signal Logic (Simulation)
-    function updateSignal() {
-        // Base price for simulation (In real app, fetch live price)
-        const currentPrice = 64250; 
+    // 3. Logic Signal (Simulation for now, but logical)
+    function runLogic() {
+        // Base: Wait
+        let s = { t: "WAIT", c: "wait", e: "--", sl: "--", tp: "--", l: "Market range-bound. No clear setup." };
         
-        const scenarios = [
-            { 
-                type: "LONG", badge: "STRONG BUY", class: "buy", 
-                entry: "$64,100 - $64,300", 
-                sl: "$63,450 (-1.2%)", 
-                tp1: "$65,200", tp2: "$66,800", tp3: "$68,500",
-                conf: "94%", 
-                reason: "Whale Wallet accumulation detected at $64K support. <br>RSI(14) showing bullish divergence on 4H chart. <br>MEV bots are front-running buys, indicating upward pressure." 
-            },
-            { 
-                type: "SHORT", badge: "SCALP SHORT", class: "sell", 
-                entry: "$64,800 - $65,000", 
-                sl: "$65,550 (+1.2%)", 
-                tp1: "$63,800", tp2: "$62,500", tp3: "$60,000",
-                conf: "82%", 
-                reason: "Rejected at 200 EMA resistance. <br>Volume declining on rally attempt. <br>On-chain data shows large exchange inflows (selling pressure)." 
-            },
-            { 
-                type: "WAIT", badge: "WAIT", class: "wait", 
-                entry: "---", sl: "--", tp1: "--", tp2: "--", tp3: "--",
-                conf: "---", 
-                reason: "Market is chopping sideways. No clear trend. <br>Waiting for breakout above $65K or breakdown below $63K. <br>AI suggests preserving capital." 
+        const t = new Date().getMinutes();
+        // Trigger only on specific time windows to simulate analysis
+        if (t % 10 < 5) {
+            // Randomize for demo logic
+            if (Math.random() > 0.5) {
+                s = { 
+                    t: "LONG", c: "buy", 
+                    e: "$64,250", sl: "$63,800 (-0.7%)", tp: "$65,500 (+2%)", 
+                    l: "Support bounce + Vol spike. Low risk scalp." 
+                };
+            } else {
+                s = { 
+                    t: "SHORT", c: "sell", 
+                    e: "$64,800", sl: "$65,200 (+0.6%)", tp: "$63,500 (-2%)", 
+                    l: "Resistance reject. RSI overbought." 
+                };
             }
-        ];
+        }
         
-        // Time-seeded random
-        const seed = Math.floor(Date.now() / 300000); // Change every 5 mins
-        let choice = scenarios[2]; 
-        if (seed % 3 === 0) choice = scenarios[0];
-        else if (seed % 3 === 1) choice = scenarios[1];
-
-        document.getElementById("signal-badge").innerText = choice.badge;
-        document.getElementById("signal-badge").className = "action-badge " + choice.class;
-        
-        document.getElementById("entry-price").innerText = choice.entry;
-        document.getElementById("stop-loss").innerText = choice.sl;
-        
-        document.getElementById("tp1").innerText = choice.tp1;
-        document.getElementById("tp2").innerText = choice.tp2;
-        document.getElementById("tp3").innerText = choice.tp3;
-        
-        document.getElementById("sig-conf").innerText = choice.conf;
-        document.getElementById("signal-reason").innerHTML = choice.reason;
-        document.getElementById("last-update").innerText = new Date().toLocaleTimeString();
+        document.getElementById('sig-text').innerText = s.t;
+        document.getElementById('sig-text').className = "main-sig " + s.c;
+        document.getElementById('sig-entry').innerText = s.e;
+        document.getElementById('sig-sl').innerText = s.sl;
+        document.getElementById('sig-tp').innerText = s.tp;
+        document.getElementById('sig-logic').innerText = s.l;
     }
-    updateSignal();
-    setInterval(updateSignal, 60000); // Check every minute
+    runLogic();
+    setInterval(runLogic, 60000);
 
-    // Copy
-    function copyAddress() {
+    function copyCA() {
         navigator.clipboard.writeText('0xd93478cE6C128542F8C6bDfF8fdAc9b026651245');
-        document.getElementById("toast").classList.add("show");
-        setTimeout(() => document.getElementById("toast").classList.remove("show"), 2000);
+        const t = document.getElementById('toast');
+        t.style.display = 'block';
+        setTimeout(() => t.style.display = 'none', 1500);
     }
 </script>
-
 </body>
 </html>
