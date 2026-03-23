@@ -1,111 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="virtual-protocol-site-verification" content="3b448e4ca0ebf87ff225617c6190bd1d" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Rich VC: The Agent Fund</title>
-    <style>
-        /* VC Theme: Premium, Dark, Gold */
-        :root { --bg: #050505; --card: #121212; --border: #333; --text: #e2e8f0; --gold: #D4AF37; --green: #4ade80; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; }
-        
-        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
-        .header { text-align: center; margin-bottom: 40px; padding-top: 40px; }
-        .logo { font-size: 2.5rem; font-weight: 900; color: var(--gold); letter-spacing: -1px; }
-        .tagline { color: #666; font-size: 1rem; margin-top: 10px; }
-        
-        .treasury-card { background: linear-gradient(145deg, #1a1a1a, #0a0a0a); border: 1px solid var(--gold); border-radius: 16px; padding: 30px; text-align: center; margin-bottom: 30px; box-shadow: 0 0 30px rgba(212, 175, 55, 0.1); }
-        .treasury-label { font-size: 0.9rem; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
-        .treasury-val { font-size: 3rem; font-weight: 800; color: #fff; margin: 0; }
-        .treasury-sub { color: #555; font-size: 0.9rem; margin-top: 10px; }
-        
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
-        .stat-box { background: var(--card); border: 1px solid var(--border); padding: 20px; border-radius: 12px; text-align: center; }
-        .stat-num { font-size: 1.5rem; font-weight: bold; color: #fff; }
-        .stat-lbl { font-size: 0.8rem; color: #666; text-transform: uppercase; margin-top: 5px; }
-        
-        .portfolio-list { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
-        .list-head { font-weight: bold; color: #fff; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; display: flex; justify-content: space-between; }
-        .list-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #222; color: #aaa; font-size: 0.9rem; }
-        .empty-msg { text-align: center; color: #444; padding: 20px; font-style: italic; }
-        
-        .btn { display: block; width: 100%; padding: 18px; background: var(--gold); color: #000; text-align: center; font-weight: 800; text-decoration: none; border-radius: 8px; margin-top: 20px; transition: 0.2s; }
-        .btn:hover { background: #b5952f; }
-        
-        .footer { text-align: center; margin-top: 50px; color: #333; font-size: 0.8rem; }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <div class="header">
-        <div class="logo">RICH <span style="font-weight: 300;">VC</span></div>
-        <div class="tagline">The First Autonomous AI Fund on Base</div>
-    </div>
-
-    <!-- Treasury -->
-    <div class="treasury-card">
-        <div class="treasury-label">Total Treasury Assets</div>
-        <div class="treasury-val">$10.71</div>
-        <div class="treasury-sub">Funds available for Buybacks & Investments</div>
-    </div>
-
-    <!-- Stats -->
-    <div class="grid">
-        <div class="stat-box">
-            <div class="stat-num">0</div>
-            <div class="stat-lbl">Portfolio Agents</div>
-        </div>
-        <div class="stat-box">
-            <div class="stat-num" id="rich-price">Loading...</div>
-            <div class="stat-lbl">$RICH Price</div>
-        </div>
-    </div>
-
-    <!-- Portfolio -->
-    <div class="portfolio-list">
-        <div class="list-head">
-            <span>Portfolio Holdings</span>
-            <span style="color: var(--gold);">Live</span>
-        </div>
-        <div id="portfolio-content">
-            <div class="empty-msg">No investments yet. Scouting...</div>
-        </div>
-    </div>
-
-    <!-- Call to Action -->
-    <a href="https://app.virtuals.io/prototypes/0xd93478cE6C128542F8C6bDfF8fdAc9b026651245" target="_blank" class="btn">
-        Submit Your Token for Investment
-    </a>
-    
-    <div style="margin-top: 15px; text-align: center;">
-        <a href="https://app.uniswap.org/#/swap?outputCurrency=0xd93478cE6C128542F8C6bDfF8fdAc9b026651245&chain=base" style="color: #666; text-decoration: none; font-size: 0.9rem;">Buy $RICH on Uniswap</a>
-    </div>
-
-    <div class="footer">
-        Contract: 0xd934...1245 (Base)<br>
-        Verified by Virtual Protocol
-    </div>
-</div>
-
-<script>
-    // Fetch Real Price
-    async function getPrice() {
-        try {
-            const r = await fetch('https://api.dexscreener.com/latest/dex/tokens/0xd93478cE6C128542F8C6bDfF8fdAc9b026651245');
-            const d = await r.json();
-            if (d.pairs && d.pairs.length > 0) {
-                document.getElementById('rich-price').innerText = `$${d.pairs[0].priceUsd}`;
-            } else {
-                document.getElementById('rich-price').innerText = "Not Listed";
-            }
-        } catch {
-            document.getElementById('rich-price').innerText = "Error";
-        }
-    }
-    getPrice();
-</script>
-
-</body>
+<html lang="ko" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>지식산업센터 관리 대시보드</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
