@@ -13,7 +13,3 @@ TypeScript · Node.js · Python · @solana/web3.js · Jito Block Engine · Vite 
 **Interests**
 
 On-chain automation, MEV-aware transaction landing, airdrops & on-chain games, AI agents.
-
----
-
-한국어: AI 자동화·봇을 만드는 개발자입니다. 솔라나 트랜잭션 전송 인프라와 업무 자동화 AI 에이전트를 만들고 있어요.
